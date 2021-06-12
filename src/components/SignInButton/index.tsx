@@ -11,8 +11,8 @@ export default function SignInButton() {
     <button 
       type="button" 
       className={styles.signInButton} 
-      onClick={() => signOut()}
-    >
+      onClick={() => signOut({ callbackUrl: '/' })}
+    > 
       <FaGithub color="#04d361" />
       {session.user.name}
       <FiX color="737380" className={styles.closeIcon} />
