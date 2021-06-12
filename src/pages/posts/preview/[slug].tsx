@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useSession } from "next-auth/client";
@@ -56,7 +56,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
   );
 }
 
-export const getStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
     fallback: 'blocking',
@@ -79,11 +79,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         year: 'numeric',
       }
     ),
-  }
+  };
+  const revalidate = 60 * 30; // 30 minutes
 
   return {
     props: {
       post
     },
+    revalidate,
   };
 }
